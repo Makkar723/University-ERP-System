@@ -104,30 +104,7 @@ University ERP workflows involve multiple actors (admins, students, instructors)
 
 ## Architecture
 
-The application follows a strict layered architecture. The UI never talks to the database directly (with one known exception in `GradebookFrame` — see [Limitations](#limitations)).
-
-```mermaid
-flowchart TB
-    subgraph client ["Desktop Client"]
-        UI["Swing UI<br/>(LoginFrame, Dashboards, Panels)"]
-    end
-
-    subgraph app ["Application Layer"]
-        API["API Facades<br/>(AuthApi, AdminApi, StudentApi, ...)"]
-        SVC["Services<br/>(AuthService, AdminService, ...)"]
-        AC["AccessController"]
-        SM["SessionManager"]
-    end
-
-    subgraph data ["Data Layer"]
-        DAO["DAOs<br/>(AuthDao, CourseDao, SectionDao, ...)"]
-        DSF["DataSourceFactory<br/>(HikariCP)"]
-    end
-
-    subgraph db ["MySQL"]
-        AUTH["auth_db<br/>users_auth"]
-        ERP["erp_db<br/>courses, sections, grades, ..."]
-    end
+The application follows a strict layered architecture. The UI never talks to the database directly (with one known exception in `GradebookFrame`)
 
     UI --> API
     API --> SVC
@@ -137,7 +114,7 @@ flowchart TB
     DAO --> DSF
     DSF --> AUTH
     DSF --> ERP
-```
+
 
 ### Layer responsibilities
 
